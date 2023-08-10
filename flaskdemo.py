@@ -13,7 +13,7 @@ def home():
 
 @app.route('/about')
 def about():
-    return "I am still working on this"
+    return render_template("about.html")
 
 
 @app.route('/search', methods=['POST', 'GET'])
@@ -33,7 +33,8 @@ def results():
 
 def get_page(search_term):
     try:
-        page = wikipedia.page(search_term)
+        # Disable auto_suggest because returns too many random suggestions!
+        page = wikipedia.page(search_term, auto_suggest=False)
     except wikipedia.exceptions.PageError:
         # no such page, return a random one
         page = wikipedia.page(wikipedia.random())
